@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 // Función auxiliar para activar la pestaña navegada según la página actual
 $pagina_actual = basename($_SERVER['PHP_SELF']);
 ?>
@@ -28,8 +31,18 @@ $pagina_actual = basename($_SERVER['PHP_SELF']);
                     <a class="nav-link <?= ($pagina_actual == 'contacto.php') ? 'active text-info fw-bold' : ''; ?>" href="contacto.php">CONTACTO</a>
                 </li>
             </ul>
-            <div class="d-flex gap-2">
-                <a href="login.php" class="btn btn-outline-light btn-sm px-3">INICIAR SESIÓN</a>
+            
+            <div class="d-flex align-items-center gap-2">
+                <?php if (isset($_SESSION['usuario_id'])): ?>
+                    <!-- Si el usuario YA inició sesión: Muestra su nombre y Cerrar Sesión -->
+                    <span class="text-light small me-2">Hola, <strong class="text-info"><?= htmlspecialchars($_SESSION['usuario_nombre'] ?? 'Usuario') ?></strong></span>
+                    <a href="logout.php" class="btn btn-outline-danger btn-sm px-3">CERRAR SESIÓN</a>
+                <?php else: ?>
+                    <!-- Si el usuario NO ha iniciado sesión: Muestra el botón de Iniciar Sesión -->
+                    <a href="login.php" class="btn btn-outline-light btn-sm px-3">INICIAR SESIÓN</a>
+                <?php endif; ?>
+                
+                <!-- Botón de Carrito siempre visible -->
                 <a href="carrito.php" class="btn btn-outline-info btn-sm px-3"><i class="bi bi-cart3 me-1"></i> Carrito</a>
             </div>
         </div>

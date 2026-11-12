@@ -1,4 +1,6 @@
 <?php
+require_once '../includes/auth_guard.php';
+verificar_admin(); // Opcional: restringe solo a administradores según tu campo is_admin
 require_once '../config/conexion.php';
 
 $stmt = $pdo->query("SELECT * FROM productos ORDER BY id DESC");
