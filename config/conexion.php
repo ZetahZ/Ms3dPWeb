@@ -12,7 +12,6 @@ try {
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]);
-    echo "¡Conexión exitosa a Supabase!";
 } catch (PDOException $e) {
     echo "<h3>Error detectado:</h3>";
     echo "Mensaje: " . $e->getMessage() . "<br>";
